@@ -1,0 +1,30 @@
+<% include partials/header %>
+<% include partials/nav %>
+
+<header class="jumbotron text-center">
+	<h1>Here are the available Campgrounds</h1>
+	<p>
+		If you did not found the campground you are looking for, go ahead.
+	</p>
+		<a href="/campgrounds/new" class="btn btn-primary">Add new Campground</a>
+	
+</header>
+	<ul>
+		<div class="row text-center" style="display:flex ;flex-wrap:wrap;">
+			<% camps.forEach(function(camp){ %>
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="img-thumbnail" style="margin-bottom:10px">
+						<img src="<%= camp.image %>" style="width:300px ; height:150px">
+						<div class="caption">
+							<h6>
+								<%= camp.location %>
+							</h6>
+							<a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">More</a>
+						</div>
+					</div>
+				</div>
+			<% }); %>
+		</div>
+	</ul>
+
+<% include partials/footer %>
