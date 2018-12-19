@@ -1,12 +1,12 @@
-<% include partials/header %>
-<% include partials/nav %>
+<% include ../partials/header %>
+<% include ../partials/nav %>
 
 <header class="jumbotron text-center">
 	<h1>Here are the available Campgrounds</h1>
 	<p>
 		If you did not found the campground you are looking for, go ahead.
 	</p>
-		<a href="/campgrounds/new" class="btn btn-primary">Add new Campground</a>
+		<a href="/campgrounds/new" class="btn btn-primary button">ADD NEW CAMPGROUND</a>
 	
 </header>
 	<ul>
@@ -19,7 +19,6 @@
 							<h6>
 								<%= camp.location %>
 							</h6>
-							<a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">More</a>
 						</div>
 					</div>
 				</div>
@@ -27,4 +26,4 @@
 		</div>
 	</ul>
 
-<% include partials/footer %>
+<% include ../partials/footer %>
