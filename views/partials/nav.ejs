@@ -5,12 +5,21 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a href="#" class="nav-link">Sign in</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">Sign up</a>
-				</li>
+				<% if(!currentUser){ %>
+					<li class="nav-item">
+					<a href="/login" class="nav-link">Log in</a>
+					</li>
+					<li class="nav-item">
+						<a href="/register" class="nav-link">Sign up</a>
+					</li>
+				<% }else{ %>
+					<li class="nav-item">
+						<a href="#" class="nav-link">Signed in as <%= currentUser.username %></a>
+					</li>
+					<li class="nav-item">
+						<a href="/logout" class="nav-link">Log Out</a>
+					</li>
+				<% } %>
 			</ul>
 		</div>
 	</div>
