@@ -13,7 +13,8 @@ var campgroundRoutes = require("./routes/campgroundRoutes");
 var authRoutes = require("./routes/authRoutes");
 
 //connecting mongoose
-mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true });
+var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp";
+mongoose.connect(url,{ useNewUrlParser: true });
 
 app.use(express.static(__dirname+"/public"));
 app.set("view engine","ejs");
