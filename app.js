@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 //requiring the models
 var comment = require("./models/comments");
-var User = require("./models/user");
+var User = require("./models/user");//the name here is same as the model
 var campground = require("./models/campgrounds");
 
 //seeding the app
@@ -29,16 +29,18 @@ var seedDB = require("./seed");
 seedDB();//seed data
 
 //passport configuration
-app.use(expressSession({
+app.use(expressSession({//we maintain the order expressSession -> app.use(expressSession) -> passport.initialize()
 	secret:"Akshat Jain",
 	resave:false,
 	saveUninitialized:false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+app.use(passport.initialize());//to initialize the passport session
+app.use(passport.session());//to handle the sessions
+
+passport.use(new localStrategy(User.authenticate()));//to use the localStrategy for requests
+passport.serializeUser(User.serializeUser());//to encrypt user to the database
+passport.deserializeUser(User.deserializeUser());//to decrypt the user to database
 app.use(function(req,res,next){//to pass this to all the templates
 	res.locals.currentUser = req.user;
 	next();
