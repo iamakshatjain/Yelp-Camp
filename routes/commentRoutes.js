@@ -1,17 +1,17 @@
 var express = require("express");
-var router = express.Router();
+var router = express.Router({mergeParams:true});
 var comment = require("../models/comments");
 var campground = require("../models/campgrounds");
 
 //comments routes
 //NEW
-router.get("/campgrounds/:id/comments/new",isLoggedIn,function(req,res){
+router.get("/new",isLoggedIn,function(req,res){
 	var id = req.params.id;
 	res.render("comments/new",{id:id});
 });
 
 //CREATE
-router.post("/campgrounds/:id/comments",function(req,res){
+router.post("/",function(req,res){
 	var id=req.params.id;
 
 	campground.findById(id,function(err,camp){

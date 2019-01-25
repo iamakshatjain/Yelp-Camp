@@ -47,9 +47,9 @@ app.use(function(req,res,next){//to pass this to all the templates
 });
 
 //using the routes
-app.use(commentRoutes);
-app.use(campgroundRoutes);
-app.use(authRoutes);
+app.use("/campgrounds/:id/comments",commentRoutes);//appends all the routes with this string in the begining
+app.use("/campgrounds",campgroundRoutes);
+app.use("/",authRoutes);
 
 //setting the listening of server
 app.listen(process.env.PORT || 3000,process.env.IP,function(){
