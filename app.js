@@ -13,7 +13,9 @@ var campgroundRoutes = require("./routes/campgroundRoutes");
 var authRoutes = require("./routes/authRoutes");
 
 //connecting mongoose
-mongoose.connect("mongodb://localhost:/yelpcamp",{ useNewUrlParser: true });
+var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp";
+// var url = localURL || databaseURL;
+mongoose.connect(url,{ useNewUrlParser: true });
 
 app.use(express.static(__dirname+"/public"));
 app.set("view engine","ejs");
@@ -26,7 +28,7 @@ var campground = require("./models/campgrounds");
 
 //seeding the app
 var seedDB = require("./seed");
-seedDB();//seed data
+// seedDB();//seed data
 
 //passport configuration
 app.use(expressSession({//we maintain the order expressSession -> app.use(expressSession) -> passport.initialize()
