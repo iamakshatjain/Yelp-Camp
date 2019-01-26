@@ -14,14 +14,20 @@ router.get("/new",isLoggedIn,function(req,res){
 router.post("/",function(req,res){
 	var id=req.params.id;
 
-	campground.findById(id,function(err,camp){
+	campground.findById(id,function(err,camp){//to find the campground to add the comment to 
 		if(err)
 			console.log(err);
 		else{
-				comment.create({
-					content:req.body.content,
-					author:req.body.author
-				},function(err,commentrec){
+				var newComment= new comment({});
+				newComment.content=req.body.content;
+				newComment.author.id=req.user._id;
+				newComment.author.username=req.user.username;
+				comment.create(newComment
+				// 	{
+				// 	content:req.body.content,
+				// 	author:req.body.author
+				// }
+				,function(err,commentrec){
 					if(err)
 						console.log(err);
 					else
