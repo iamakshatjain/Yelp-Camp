@@ -60,6 +60,38 @@ router.get("/:id",function(req,res){
 	});
 });
 
+//EDIT - To show the edit form for the campground
+router.get("/:id/edit",function(req,res){
+	campground.findById(req.params.id,function(err,foundCampground){
+		if(err){
+			console.log("error in line #67");
+			console.log(err);
+		}else{
+			res.render("campgrounds/edit",{campground:foundCampground});	
+		}
+	});
+});
+
+//DELETE - To destroy the campground
+router.delete("/:id",function(req,res){
+	campground.findByIdAndDelete(req.params.id,function(err){
+		res.redirect("/campgrounds");
+	});
+});
+
+router.put("/:id",function(req,res){
+	campground.findByIdAndUpdate(req.params.id,{$set:{image : req.body.image,desc : req.body.desc,location : req.body.location}},function(err,updatedCampground){
+		if(err){
+			console.log("err in line #83");
+			console.log(err);
+		}else{
+			console.log("campground updated");
+			console.log(updatedCampground);
+			res.redirect("/campgrounds/"+req.params.id);//to redirect back to the show page to review the changes
+		}
+	});
+});
+
 //middleware
 function isLoggedIn(req,res,next){
 	if(req.isAuthenticated())

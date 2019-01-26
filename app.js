@@ -6,6 +6,7 @@ var mongoose=require("mongoose");
 var passport = require("passport");
 var localStrategy = require("passport-local");
 var expressSession= require("express-session");
+var methodOverride = require("method-override");
 
 //requiring the routes
 var commentRoutes = require("./routes/commentRoutes");
@@ -13,13 +14,16 @@ var campgroundRoutes = require("./routes/campgroundRoutes");
 var authRoutes = require("./routes/authRoutes");
 
 //connecting mongoose
-var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp";
-// var url = localURL || databaseURL;
+var localURL = "mongodb://localhost/yelpcamp";
+var databaseURL = "mongodb://akshat:akshat99@ds145484.mlab.com:45484/yelp-camp";
+// var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp";
+var url = localURL || databaseURL;
 mongoose.connect(url,{ useNewUrlParser: true });
 
 app.use(express.static(__dirname+"/public"));
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
 
 //requiring the models
 var comment = require("./models/comments");
