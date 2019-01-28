@@ -46,6 +46,34 @@ router.post("/",function(req,res){
 	});
 });
 
+//EDIT - To display an edit form for the comment
+router.get("/:comment_id/edit",function(req,res){
+	comment.findById(req.params.comment_id,function(err,foundComment){
+		if(err)
+		{
+			console.log(err);
+			res.redirect("back");
+		}
+		else{
+			// console.log(foundComment);
+			res.render("comments/edit",{campground_id:req.params.id,comment:foundComment});
+		}
+	});
+});
+
+//UPDATE - To make changes to the database
+router.put("/:comment_id",function(req,res){
+	comment_id = req.params.comment_id;//this is the comment id
+	comment.findByIdAndUpdate(comment_id,{$set:{content:req.body.content}},function(err,body){
+		if(err){
+			console.log(err);
+		}else{
+			console.log("comment updated");
+			res.redirect("/campgrounds/"+req.params.id);
+		}
+	});
+});
+
 //middleware
 function isLoggedIn(req,res,next){
 	if(req.isAuthenticated())

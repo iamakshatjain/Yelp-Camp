@@ -26,10 +26,12 @@
 				<p class="body3">
 					<em>Submitted by <%= camp.author.username %></em>
 				</p>
-				<a href="/campgrounds/<%= camp._id %>/edit"><button class="btn btn-warning btn-sm">Edit</button></a>
-				<form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST" id="delete-campground">
-					<button class="btn btn-sm btn-danger">Delete</button>
-				</form>	 
+				<% if(currentUser && currentUser._id.equals(camp.author.id)){ %>
+					<a href="/campgrounds/<%= camp._id %>/edit"><button class="btn btn-warning btn-sm">Edit</button></a>
+					<form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST" id="delete-campground">
+						<button class="btn btn-sm btn-danger">Delete</button>
+					</form>
+				<% } %>	 
 			</div>
 			<br>
 			<div id="comments" class="well">
@@ -43,8 +45,10 @@
 						<p class="body3 float-right">few days ago</p>
 						<p class="body3"><strong><%= comment.author.username %></strong><br>
 						<%= comment.content %></p>
-
 					</p>
+					<a href="/campgrounds/<%= camp._id %>/comments/<%= comment._id %>/edit">
+						<button class="btn btn-sm btn-warning">Edit</button>
+					</a>
 				<% }); %>
 			
 			</div>

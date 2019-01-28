@@ -37,7 +37,7 @@ router.get("/login",function(req,res){
 router.post("/login",passport.authenticate("local",
 	{
 		successRedirect : "/campgrounds",//to go back to the same page
-		failureRedirect : "/login",
+		failureRedirect : "/login"
 	}),function(req,res){
 	console.log(req.user);
 });

@@ -61,7 +61,7 @@ router.get("/:id",function(req,res){
 });
 
 //EDIT - To show the edit form for the campground
-router.get("/:id/edit",function(req,res){
+router.get("/:id/edit",checkOwnership,function(req,res){
 	campground.findById(req.params.id,function(err,foundCampground){
 		if(err){
 			console.log("error in line #67");
@@ -72,14 +72,8 @@ router.get("/:id/edit",function(req,res){
 	});
 });
 
-//DELETE - To destroy the campground
-router.delete("/:id",function(req,res){
-	campground.findByIdAndDelete(req.params.id,function(err){
-		res.redirect("/campgrounds");
-	});
-});
-
-router.put("/:id",function(req,res){
+//UPDATE - To update the campground in the database
+router.put("/:id",checkOwnership,function(req,res){
 	campground.findByIdAndUpdate(req.params.id,{$set:{image : req.body.image,desc : req.body.desc,location : req.body.location}},function(err,updatedCampground){
 		if(err){
 			console.log("err in line #83");
@@ -92,7 +86,41 @@ router.put("/:id",function(req,res){
 	});
 });
 
+//DELETE - To destroy the campground
+router.delete("/:id",checkOwnership,function(req,res){
+	campground.findByIdAndDelete(req.params.id,function(err){
+		res.redirect("/campgrounds");
+	});
+});
+
+
+
 //middleware
+
+function checkOwnership(req,res,next){//to check if the logged in user is the owner
+	campground.findById(req.params.id,function(err,foundCamp){
+		if(err){//if the campground doesn't exist
+			console.log(err);
+			res.redirect("/campgrounds");
+		}
+		else{//if the campground does exist
+			if(req.isAuthenticated()){//if the user is logged in
+				if(req.user._id.equals(foundCamp.author.id))//it the logged in user is the owner
+					return next();
+				//not owner
+				res.send("You are not authorised");
+			}
+			else{//user is not logged in
+				// res.send("please login first");
+				res.redirect("/login");
+			}
+
+		}
+	});
+}
+
+
+
 function isLoggedIn(req,res,next){
 	if(req.isAuthenticated())
 	{
