@@ -38,7 +38,7 @@ router.post("/",function(req,res){//to add to the campgrounds
 		else
 		{
 			console.log("new campground added");
-			console.log(camp);
+			// console.log(camp);
 		}
 	});
 	res.redirect("/campgrounds");
@@ -54,7 +54,8 @@ router.get("/:id",function(req,res){
 			console.log(err);
 		}
 		else
-		{
+		{	
+			console.log(camp);
 			res.render("campgrounds/show",{camp:camp});
 		}
 	});
@@ -80,7 +81,7 @@ router.put("/:id",checkOwnership,function(req,res){
 			console.log(err);
 		}else{
 			console.log("campground updated");
-			console.log(updatedCampground);
+			// console.log(updatedCampground);
 			res.redirect("/campgrounds/"+req.params.id);//to redirect back to the show page to review the changes
 		}
 	});

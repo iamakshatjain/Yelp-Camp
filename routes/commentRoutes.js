@@ -32,7 +32,7 @@ router.post("/",function(req,res){
 						console.log(err);
 					else
 					{
-						console.log(commentrec);
+						// console.log(commentrec);
 						camp.comments.push(commentrec);
 						camp.save(function(err){
 							if(err)
@@ -72,6 +72,27 @@ router.put("/:comment_id",function(req,res){
 			res.redirect("/campgrounds/"+req.params.id);
 		}
 	});
+});
+
+//DELETE - To destroy the comment on the campground
+router.delete("/:comment_id",function(req,res){
+	var comment_id=req.params.comment_id;
+	comment.findByIdAndRemove(comment_id);
+	//we need to delete from the comment database
+	campground.findById(req.params.id,function(err,foundCamp){
+		console.log(foundCamp);
+		var comments=foundCamp.comments;
+		var newComments=[];
+		comments.forEach(function(comment){
+			if(!(comment._id.equals(comment_id)))
+				newComments.push(comment);
+		});
+		campground.findByIdAndUpdate(req.params.id,{$set:{comments:newComments}},function(err){//to update the campground
+			if(err)
+				console.log(err);
+		});
+	});
+	res.redirect("/campgrounds/"+req.params.id);
 });
 
 //middleware
