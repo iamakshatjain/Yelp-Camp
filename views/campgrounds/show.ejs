@@ -28,8 +28,8 @@
 				</p>
 				<% if(currentUser && currentUser._id.equals(camp.author.id)){ %>
 					<a href="/campgrounds/<%= camp._id %>/edit"><button class="btn btn-warning btn-sm">Edit</button></a>
-					<form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST" id="delete-campground">
-						<button class="btn btn-sm btn-danger">Delete</button>
+					<form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST" class="delete-form">
+						<button class="btn btn-sm btn-danger" id="delete-btn">Delete</button>
 					</form>
 				<% } %>	 
 			</div>
@@ -46,12 +46,14 @@
 						<p class="body3"><strong><%= comment.author.username %></strong><br>
 						<%= comment.content %></p>
 					</p>
-					<a href="/campgrounds/<%= camp._id %>/comments/<%= comment._id %>/edit">
+					<%if(currentUser && currentUser._id.equals(comment.author.id)){%>
+						<a href="/campgrounds/<%= camp._id %>/comments/<%= comment._id %>/edit">
 						<button class="btn btn-sm btn-warning">Edit</button>
-					</a>
-					<form action="/campgrounds/<%= camp._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-						<button class="btn btn-sm btn-danger">Delete</button>
-					</a>
+						</a>
+						<form action="/campgrounds/<%= camp._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" class="delete-form">
+							<button class="btn btn-sm btn-danger">Delete</button>
+						</a>
+					<%}%>
 				<% }); %>
 			
 			</div>

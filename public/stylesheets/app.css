@@ -57,9 +57,9 @@ img.thumbnail{
 	height:20px;
 }
 
-/* delete the campground form */
-#delete-campground{
-	display:inline-block;
+/* delete the campground or comment form */
+.delete-form{
+	display: inline;
 }
 
 /*Typography*/
