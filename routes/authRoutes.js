@@ -1,7 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var passport = require("passport");
-var User = require("../models/user")
+var User = require("../models/user");
+var middleware=require("../middleware/index");
 
 //landing or home
 router.get("/",function(req,res){
@@ -37,7 +38,7 @@ router.get("/login",function(req,res){
 router.post("/login",passport.authenticate("local",
 	{
 		successRedirect : "/campgrounds",//to go back to the same page
-		failureRedirect : "/login",
+		failureRedirect : "/login"
 	}),function(req,res){
 	console.log(req.user);
 });
@@ -47,17 +48,5 @@ router.get("/logout",function(req,res){
 	res.redirect("/campgrounds");
 	console.log("user logged out");
 });
-
-//middleware
-function isLoggedIn(req,res,next){
-	if(req.isAuthenticated())
-	{
-		return next();
-	}
-	else
-	{
-		res.redirect("/login");
-	}
-}
 
 module.exports = router;

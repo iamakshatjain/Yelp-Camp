@@ -57,6 +57,11 @@ img.thumbnail{
 	height:20px;
 }
 
+/* delete the campground or comment form */
+.delete-form{
+	display: inline;
+}
+
 /*Typography*/
 h1{
 	font-family: 'Roboto', sans-serif;
