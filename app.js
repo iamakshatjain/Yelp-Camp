@@ -9,21 +9,21 @@ var expressSession= require("express-session");
 var methodOverride = require("method-override");
 var flash = require("connect-flash");
 var dotenv = require("dotenv");
+dotenv.config();
 
 //requiring the routes
 var commentRoutes = require("./routes/commentRoutes");
 var campgroundRoutes = require("./routes/campgroundRoutes");
 var authRoutes = require("./routes/authRoutes");
-dotenv.config();
 
-// >>>>>>> 46952a129b7135b9fb06096f45f0739a48d5871a
-mongoose.connect(process.env.LDATABASEURL,{ useNewUrlParser: true });
+mongoose.connect(process.env.DATABASEURL,{ useNewUrlParser: true });
 
 app.use(flash());
 app.use(express.static(__dirname+"/public"));
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
+
 
 //requiring the models
 var comment = require("./models/comments");
@@ -41,6 +41,7 @@ app.use(expressSession({//we maintain the order expressSession -> app.use(expres
 	saveUninitialized:false
 }));
 
+app.use(flash());
 app.use(passport.initialize());//to initialize the passport session
 app.use(passport.session());//to handle the sessions
 

@@ -16,8 +16,11 @@ router.post("/",function(req,res){
 	var id=req.params.id;
 
 	campground.findById(id,function(err,camp){//to find the campground to add the comment to 
-		if(err)
+		if(err){
 			console.log(err);
+			req.flash("error",err.message);
+			res.redirect("back");
+		}
 		else{
 				var newComment= new comment({});
 				newComment.content=req.body.content;
@@ -29,17 +32,25 @@ router.post("/",function(req,res){
 				// 	author:req.body.author
 				// }
 				,function(err,commentrec){
-					if(err)
+					if(err){
 						console.log(err);
+						req.flash("error",err.message);
+						res.redirect("back");
+					}
 					else
 					{
 						// console.log(commentrec);
 						camp.comments.push(commentrec);
 						camp.save(function(err){
-							if(err)
+							if(err){
+								req.flash("error",err.message);
+								res.redirect("back");
 								console.log(err);
-							else
+							}
+							else{
+								req.flash("success","comment added successfully");
 								res.redirect("/campgrounds/"+id);
+							}
 						});
 					}
 				});
@@ -53,6 +64,7 @@ router.get("/:comment_id/edit",middleware.isCommentAuthorized,function(req,res){
 		if(err)
 		{
 			console.log(err);
+			req.flash("error",err.message);
 			res.redirect("back");
 		}
 		else{
@@ -68,8 +80,11 @@ router.put("/:comment_id",middleware.isCommentAuthorized,function(req,res){
 	comment.findByIdAndUpdate(comment_id,{$set:{content:req.body.content}},function(err,body){
 		if(err){
 			console.log(err);
+			req.flash("error",err.message);
+			res.redirect("back");
 		}else{
 			console.log("comment updated");
+			req.flash("success","Comment updated");
 			res.redirect("/campgrounds/"+req.params.id);
 		}
 	});
@@ -89,10 +104,14 @@ router.delete("/:comment_id",middleware.isCommentAuthorized,function(req,res){
 				newComments.push(comment);
 		});
 		campground.findByIdAndUpdate(req.params.id,{$set:{comments:newComments}},function(err){//to update the campground
-			if(err)
+			if(err){
 				console.log(err);
+				req.flash("error",err.message);
+				res.redirect("back");
+			}
 		});
 	});
+	req.flash("success","Campground delted");
 	res.redirect("/campgrounds/"+req.params.id);
 });
 

@@ -42,6 +42,7 @@ router.post("/",function(req,res){//to add to the campgrounds
 			// console.log(camp);
 		}
 	});
+	req.flash("success",camp.location + " campground successfully created");
 	res.redirect("/campgrounds");
 });
 
@@ -68,6 +69,8 @@ router.get("/:id/edit",middleware.isCampgroundAuthorized,function(req,res){
 		if(err){
 			console.log("error in line #67");
 			console.log(err);
+			req.flash("error",err.message);
+			res.redirect("back");
 		}else{
 			res.render("campgrounds/edit",{campground:foundCampground});	
 		}
@@ -80,9 +83,12 @@ router.put("/:id",middleware.isCampgroundAuthorized,function(req,res){
 		if(err){
 			console.log("err in line #83");
 			console.log(err);
+			req.flash("error",err.message);
+			res.redirect("back");
 		}else{
 			console.log("campground updated");
 			// console.log(updatedCampground);
+			req.flash("success","Updated successfully");
 			res.redirect("/campgrounds/"+req.params.id);//to redirect back to the show page to review the changes
 		}
 	});
@@ -91,6 +97,11 @@ router.put("/:id",middleware.isCampgroundAuthorized,function(req,res){
 //DELETE - To destroy the campground
 router.delete("/:id",middleware.isCampgroundAuthorized,function(req,res){
 	campground.findByIdAndDelete(req.params.id,function(err){
+		if(err){
+			req.flash("error",err.message);
+			res.redirect("back");
+		}
+		req.flash("success","Campground deleted successfully");
 		res.redirect("/campgrounds");
 	});
 });

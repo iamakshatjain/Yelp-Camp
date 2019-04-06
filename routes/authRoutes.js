@@ -20,11 +20,13 @@ router.post("/register",function(req,res){
 		if(err)
 			{
 				console.log(err);
+				req.flash("error",err.message);
 				res.redirect("/register");
 			}
 		else
 		{
 			passport.authenticate("local")(req,res,function(){
+				req.flash("success","Welcome to YelpCamp "+req.user.username);
 				res.redirect("/campgrounds");
 			})
 		}
@@ -32,19 +34,24 @@ router.post("/register",function(req,res){
 });
 
 router.get("/login",function(req,res){
+	req.flash("error");//directly linked with passport's failureFlash
+	req.flash("success");
 	res.render("login");
 });
 
 router.post("/login",passport.authenticate("local",
 	{
 		successRedirect : "/campgrounds",//to go back to the same page
-		failureRedirect : "/login"
+		failureRedirect : "/login",
+		failureFlash : true,//this make the login form to have the error message to be flashed
+		successFlash : "Successfully logged in"
 	}),function(req,res){
 	console.log(req.user);
 });
 
 router.get("/logout",function(req,res){
 	req.logout();
+	req.flash("success","Logged out successfully");
 	res.redirect("/campgrounds");
 	console.log("user logged out");
 });
