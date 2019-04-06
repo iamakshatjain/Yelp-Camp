@@ -9,7 +9,7 @@
 		<a href="/campgrounds/new" class="btn btn-primary button">ADD NEW CAMPGROUND</a>
 	
 </header>
-	<ul>
+	<div class="container">
 		<div class="row text-center" style="display:flex ;flex-wrap:wrap;">
 			<% camps.forEach(function(camp){ %>
 				<div class="col-lg-4 col-md-6 col-sm-12">
@@ -24,6 +24,7 @@
 				</div>
 			<% }); %>
 		</div>
-	</ul>
+	</div>
+	
 
 <% include ../partials/footer %>
