@@ -29,6 +29,32 @@ a:hover{
 	text-decoration: none;
 }
 
+.fas.fa-bars{
+	color: white;
+	outline: 0;
+}
+
+.landing{
+	background: url("https://images.pexels.com/photos/93858/pexels-photo-93858.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+	background-attachment: fixed;
+	  background-position: center;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	  min-width: 300px;
+	  height: 87vh;
+	  border-radius: 20px;
+	  width: 100%;
+}
+
+.landing>.jumbotron{
+	background:none;
+	color:white;
+}
+
+.landing>.jumbotron h1{
+	margin-top: 10%;
+}
+
 body{
 	/*background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);*/
 	
@@ -138,6 +164,8 @@ img.show{
 	border: 0;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	font-family: 'Roboto', sans-serif;
+	background: #3b5284;
+	color: white;
 }
 
 .img-thumbnail:hover{
@@ -228,4 +256,20 @@ h6{
 .rounded{
 	border-bottom-right-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
+}
+
+footer{
+	background-color: #3b5284;
+	color: #97cadb;
+	font-family: 'Roboto', sans-serif;
+	bottom: 0;
+}
+
+footer a{
+	color:white;
+}
+
+footer a:hover{
+	color: #97cadb;
+	transition: 0.5s;
 }
