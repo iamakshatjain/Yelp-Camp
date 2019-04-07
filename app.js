@@ -8,8 +8,8 @@ var localStrategy = require("passport-local");
 var expressSession= require("express-session");
 var methodOverride = require("method-override");
 var flash = require("connect-flash");
-var dotenv = require("dotenv");
-dotenv.config();
+// var dotenv = require("dotenv");
+// dotenv.config();
 
 //requiring the routes
 var commentRoutes = require("./routes/commentRoutes");
