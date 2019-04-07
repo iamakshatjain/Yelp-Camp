@@ -2,26 +2,31 @@
 <% include ../partials/nav %>
 
 <header class="jumbotron text-center">
-	<h1>Here are the available Campgrounds</h1>
+	<h1>Welcome to Yelp-Camp</h1>
 	<p>
-		If you did not found the campground you are looking for, go ahead.
+		Places around the country added by the people of the community for the people of the community.
 	</p>
-		<a href="/campgrounds/new" class="btn btn-primary button">ADD NEW CAMPGROUND</a>
-	
+	<p>
+		If you have a travel experience, 	<a href="/campgrounds/new"><i class="fas fa-plus"></i>ADD NEW CAMPGROUND</a>
+	</p>
 </header>
+
+<hr>
 	<ul>
 		<div class="row text-center" style="display:flex ;flex-wrap:wrap;">
 			<% camps.forEach(function(camp){ %>
 				<div class="col-lg-4 col-md-6 col-sm-12">
-					<div class="img-thumbnail">
-						<img src="<%= camp.image %>" class="thumbnail rounded">
-						<div class="caption">
-							<h6>
-								<%= camp.location %>
-							</h6>
-							<a href="/campgrounds/<%=camp._id%>" class="btn btn-outline-primary button">MORE</a>
+					<a href="/campgrounds/<%=camp._id%>">
+						<div class="img-thumbnail">
+							<img src="<%= camp.image %>" class="thumbnail rounded">
+							<div class="caption">
+								<h6>
+									<%= camp.location %>
+								</h6>
+								
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			<% }); %>
 		</div>

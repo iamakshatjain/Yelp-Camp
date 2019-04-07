@@ -1,18 +1,18 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-
+//this is not being used
 <header class="jumbotron text-center">
-	<h1>Here are the available Campgrounds</h1>
+	<h1>Here are the  Campgrounds</h1>
 	<p>
 		If you did not found the campground you are looking for, go ahead.
 	</p>
 		<a href="/campgrounds/new" class="btn btn-primary button">ADD NEW CAMPGROUND</a>
-	
 </header>
+
 	<div class="container">
 		<div class="row text-center" style="display:flex ;flex-wrap:wrap;">
 			<% camps.forEach(function(camp){ %>
-				<div class="col-lg-4 col-md-6 col-sm-12">
+				<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
 					<div class="img-thumbnail">
 						<img src="<%= camp.image %>">
 						<div class="caption">
