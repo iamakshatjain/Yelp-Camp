@@ -1,7 +1,10 @@
 # YelpCamp 🏕
 
 ![Logo](https://github.com/iamakshatjain/Yelp-Camp/blob/master/public/icons/ms-icon-310x310.png?raw=true)
-
+>This is a campground and picnic spots finding site. 🏕
+>The website if deployed to use aims at providing full-fledged information about any campground near you. 
+>You would not need to spend hours to look for a place to go for a small picnic or a long drive with your friends.🕑
+>
 > A Node.js web application project from the Udemy course - [The Web Developer Bootcamp by Colt Steele](https://www.udemy.com/the-web-developer-bootcamp/)
 
 ## Live Demo
